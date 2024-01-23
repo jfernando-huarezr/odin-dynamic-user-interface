@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  padding: 10px;
+  background-color: pink;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    li {
+      list-style-type: none;
+      position: relative;
+      button {
+        padding: 5px;
+      }
+
+      button:hover {
+        background-color: red;
+      }
+
+      .clicked {
+        background-color: yellow;
+      }
+
+      .dropdown-content {
+        display: none;
+        width: 100%;
+        position: absolute;
+        background-color: greenyellow;
+      }
+
+      .dropdown-content:hover {
+        background-color: aquamarine;
+      }
+
+      .show {
+        display: block;
+      }
+    }
+  }
+}
