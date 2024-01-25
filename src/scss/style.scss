@@ -30,6 +30,7 @@ nav {
         width: 200%;
         position: absolute;
         background-color: greenyellow;
+        z-index: 1;
 
         p {
           padding: 2px;
@@ -45,4 +46,85 @@ nav {
       }
     }
   }
+}
+
+.main {
+  width: 100%;
+}
+
+.carousel {
+  width: 100%;
+
+  .carousel-frame {
+    position: relative;
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .carousel-picture.current-picture {
+      display: block;
+
+      opacity: 1;
+    }
+
+    .carousel-picture {
+      display: none;
+
+      transition: opacity 1s ease-in-out;
+      opacity: 0;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .carousel-frame-control {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        padding: 12px;
+        background-color: rgba($color: #ffff, $alpha: 0.3);
+        visibility: hidden;
+      }
+    }
+
+    .btn-container:hover {
+      button {
+        visibility: visible;
+      }
+    }
+  }
+
+  .carousel-control {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    .carousel-control__item {
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      background-color: grey;
+    }
+
+    .carousel-control__item.selected {
+      background-color: blue;
+    }
+
+    .carousel-control__item:hover {
+      border: 2px solid red;
+    }
+  }
+}
+
+.spacing {
+  padding: 10px;
 }

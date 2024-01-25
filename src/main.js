@@ -1,46 +1,28 @@
 import "./scss/style.scss";
+import eventCarousel from "./modules/carousel";
 
-const navbar = document.querySelector("nav");
+const dropdowns = document.querySelectorAll(".dropdown");
 
-navbar.addEventListener("click", (e) => {
-  const targetElement = e.target;
+const onClickOutside = (element, callback) => {
+  document.addEventListener("click", (e) => {
+    if (!element.contains(e.target)) callback();
+  });
+};
 
-  if (targetElement.tagName.toLowerCase() === "button") {
-    if (document.querySelector("button.clicked")) {
-      document.querySelector("button.clicked").classList.remove("clicked");
+dropdowns.forEach((dropdown) => {
+  const dropdownContent = dropdown.querySelector(".dropdown-content");
+
+  dropdown.addEventListener("click", (e) => {
+    const targetElement = e.target;
+
+    if (targetElement.tagName.toLowerCase() === "button") {
+      dropdownContent.classList.add("show");
     }
-    targetElement.classList.add("clicked");
+  });
 
-    if (document.querySelector(".dropdown-content.show")) {
-      document.querySelector(".dropdown-content.show").classList.remove("show");
-    }
-
-    const dropdownContainer = targetElement.parentElement;
-    const dropdownContent =
-      dropdownContainer.querySelector(".dropdown-content");
-    dropdownContent.classList.add("show");
-  }
+  onClickOutside(dropdown, () => {
+    dropdownContent.classList.remove("show");
+  });
 });
 
-// hide dropdowns when clicked outside
-document.querySelector("body").addEventListener("click", (e) => {
-  const targetElement = e.target;
-
-  console.log(targetElement);
-
-  if (targetElement.classList.contains("clicked")) {
-    return;
-  }
-
-  if (targetElement.parentElement.classList.contains("dropdown-content")) {
-    return;
-  }
-
-  if (document.querySelector(".dropdown-content.show")) {
-    document.querySelector(".dropdown-content.show").classList.remove("show");
-  }
-
-  if (document.querySelector("button.clicked")) {
-    document.querySelector("button.clicked").classList.remove("clicked");
-  }
-});
+eventCarousel();
