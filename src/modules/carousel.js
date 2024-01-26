@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 export default function eventCarousel() {
   const carousel = document.querySelector(".carousel");
   const carouselPictures = document.querySelectorAll(".carousel-picture");
@@ -31,13 +32,15 @@ export default function eventCarousel() {
     carouselControlItems[autoAdvance].classList.add("selected");
   }
 
-  // Set the interval to advance the picture every 5 seconds (5000 milliseconds)
-  setInterval(advancePicture, 3000);
+  // Set the interval to advance the picture every 3 seconds (3000 milliseconds)
+  let timer = setInterval(advancePicture, 3000);
 
   carousel.addEventListener("click", (e) => {
     const targetElement = e.target;
 
     if (targetElement.tagName.toLowerCase() === "button") {
+      clearInterval(timer);
+
       const currentPictureIndex = Array.from(carouselPictures).findIndex(
         (picture) => picture.classList.contains("current-picture")
       );
@@ -54,9 +57,13 @@ export default function eventCarousel() {
       }
       carouselPictures[nextPictureIndex].classList.add("current-picture");
       carouselControlItems[nextPictureIndex].classList.add("selected");
+
+      timer = setInterval(advancePicture, 3000);
     }
 
     if (targetElement.classList.contains("carousel-control__item")) {
+      clearInterval(timer);
+
       const clickedElementIndex =
         Array.from(carouselControlItems).indexOf(targetElement);
       console.log(clickedElementIndex);
@@ -68,6 +75,25 @@ export default function eventCarousel() {
 
       carouselPictures[clickedElementIndex].classList.add("current-picture");
       carouselControlItems[clickedElementIndex].classList.add("selected");
+
+      timer = setInterval(advancePicture, 3000);
     }
   });
+
+  function setHeightFrame() {
+    const frame = document.querySelector(".carousel-frame");
+    const pictures = document.querySelectorAll(".carousel-picture");
+    let maxHeight = 0;
+
+    for (let i = 0; i < pictures.length; i++) {
+      const pictureHeight = pictures[i].offsetHeight;
+      maxHeight = Math.max(maxHeight, pictureHeight);
+    }
+
+    frame.style.height = `${maxHeight}px`;
+  }
+
+  window.addEventListener("resize", setHeightFrame);
+
+  window.addEventListener("load", setHeightFrame);
 }
